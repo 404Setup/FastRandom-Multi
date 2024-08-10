@@ -20,11 +20,11 @@ public class RandomNumberGenerationBenchmark {
 	/**
 	 * Minecraft's vanilla random number generator.
 	 */
-	private static final CheckedRandom VANILLA_RANDOM = new CheckedRandom(RandomSeed.getSeed());
+	private static CheckedRandom VANILLA_RANDOM = new CheckedRandom(RandomSeed.getSeed());
 	/**
 	 * Legacy {@link Random} from {@link java.util}.
 	 */
-	private static final Random OLD_RANDOM = new Random(RandomSeed.getSeed());
+	private static Random OLD_RANDOM = new Random(RandomSeed.getSeed());
 	/**
 	 * An ordered list of random number generator names.
 	 */
@@ -62,6 +62,8 @@ public class RandomNumberGenerationBenchmark {
 		BENCHMARK_LOGGER.info("Vanilla benchmark");
 		var vanillaStart = System.nanoTime();
 		for (int i = 0; i < ITERATIONS; i++) {
+			//TODO: very slow test for something, remove later
+			VANILLA_RANDOM = new CheckedRandom(RandomSeed.getSeed());
 			VANILLA_RANDOM.nextFloat();
 			VANILLA_RANDOM.nextInt();
 			VANILLA_RANDOM.nextDouble();
@@ -77,6 +79,7 @@ public class RandomNumberGenerationBenchmark {
 		BENCHMARK_LOGGER.info("java.util.random");
 		var oldRandomStart = System.nanoTime();
 		for (int i = 0; i < ITERATIONS; i++) {
+			OLD_RANDOM = new Random(RandomSeed.getSeed());
 			OLD_RANDOM.nextFloat();
 			OLD_RANDOM.nextInt();
 			OLD_RANDOM.nextDouble();
@@ -90,7 +93,7 @@ public class RandomNumberGenerationBenchmark {
 
 		// ThreadLocalRandom ("100X faster" than the old CheckedRandom)
 		// TODO: Add old CheckedRandom implementation as a benchmark alongside the existing benchmarks
-		BENCHMARK_LOGGER.info("ThreadLocalRandom");
+		BENCHMARK_LOGGER.info("ThreadLocalRandom (results not valid due to method used in this commit's variant)");
 		var threadLocalRandom = ThreadLocalRandom.current();
 		var threadLocalStart = System.nanoTime();
 		for (int i = 0; i < ITERATIONS; i++) {
@@ -107,9 +110,11 @@ public class RandomNumberGenerationBenchmark {
 
 		// LXM random
 		BENCHMARK_LOGGER.info("LXM");
-		var generator = RandomGeneratorFactory.of("L64X128MixRandom").create();
+
+
 		var lxmStart = System.nanoTime();
 		for (int i = 0; i < ITERATIONS; i++) {
+			var generator = RandomGeneratorFactory.of("L64X128MixRandom").create(RandomSeed.getSeed());
 			generator.nextFloat();
 			generator.nextInt();
 			generator.nextDouble();
@@ -121,10 +126,12 @@ public class RandomNumberGenerationBenchmark {
 		BENCHMARK_LOGGER.info("LXM time: {}{}s{}, mean: {}{}s{}", ANSI_COLOURS.BOLD_YELLOW.value, lxmFinish, ANSI_COLOURS.RESET.value,ANSI_COLOURS.BOLD_YELLOW.value, (float) (lxmFinish / ITERATIONS),ANSI_COLOURS.RESET.value);
 		TIMING_VALUES.add(lxmFinish); // 3
 
+
+
 		BENCHMARK_LOGGER.info("Xoroshiro128++Random");
-		Xoroshiro128PlusPlusRandom xoroshirogenerator = new Xoroshiro128PlusPlusRandom(0);
 		var xoroStart = System.nanoTime();
 		for (int i = 0; i < ITERATIONS; i++){
+			Xoroshiro128PlusPlusRandom xoroshirogenerator = new Xoroshiro128PlusPlusRandom(RandomSeed.getSeed());
 			xoroshirogenerator.nextFloat();
 			xoroshirogenerator.nextInt();
 			xoroshirogenerator.nextDouble();
