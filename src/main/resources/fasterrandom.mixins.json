@@ -6,9 +6,13 @@
   "plugin": "com.github.anopensaucedev.fasterrandom.mixin.FasterRandomMixinPlugin",
   "mixins": [
     "ChunkRandomMixin",
+    "EntityMixin",
     "RandomMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "WorldRendererMixin"
+  ]
 }
