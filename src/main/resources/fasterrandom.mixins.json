@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "com.github.anopensaucedev.fasterrandom.mixin.FasterRandomMixinPlugin",
   "mixins": [
+    "CaveCarverMixin",
     "ChunkRandomMixin",
     "EntityMixin",
-    "RandomMixin"
+    "RandomMixin",
+    "RavineCarverMixin"
   ],
   "injectors": {
     "defaultRequire": 1

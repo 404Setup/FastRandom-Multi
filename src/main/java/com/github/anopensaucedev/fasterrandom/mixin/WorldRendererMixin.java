@@ -15,7 +15,7 @@ public class WorldRendererMixin {
 		return FasterRandom.GLOBAL_LOCAL_INSTANCE;
 	}
 
-	//TODO: check effects on rain
+	//TODO: fix rain, generates way more particles this way.
 	@Redirect(method = "renderWeather",at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/random/Random;create(J)Lnet/minecraft/util/math/random/Random;"))
 	public Random fasterrandom$replaceRandom2(long seed){
 		return FasterRandom.GLOBAL_LOCAL_INSTANCE;
