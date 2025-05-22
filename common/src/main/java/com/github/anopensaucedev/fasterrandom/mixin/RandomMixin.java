@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// TODO: Forge does not support the use of the Inject injection interface, and the injection method will be modified later.
 @Mixin(RandomSource.class)
 public interface RandomMixin {
 	@Inject(method = "create(J)Lnet/minecraft/util/RandomSource;", at = @At(value = "HEAD"), cancellable = true)
