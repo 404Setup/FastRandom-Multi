@@ -9,6 +9,7 @@
     "RandomMixin",
     "patches.MergeEntityRandom"
   ],
+  "refmap": "fasterrandom.refmap.json",
   "injectors": {
     "defaultRequire": 1
   }
