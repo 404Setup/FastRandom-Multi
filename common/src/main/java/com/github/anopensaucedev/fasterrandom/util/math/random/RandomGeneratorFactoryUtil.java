@@ -9,7 +9,7 @@ import java.util.random.RandomGeneratorFactory;
 public class RandomGeneratorFactoryUtil {
 	public static final @NotNull String RANDOM_GENERATOR_NAME = FasterRandomMixinPlugin.configPatchSet.RANDOM_ENGINE_NAME;
 
-	public static @NotNull RandomGeneratorFactory<RandomGenerator.SplittableGenerator> getRandomGeneratorFactory() {
+	public static @NotNull RandomGeneratorFactory<RandomGenerator> getRandomGeneratorFactory() {
 		return RandomGeneratorFactory.of(RANDOM_GENERATOR_NAME);
 	}
 }
